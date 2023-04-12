@@ -1,0 +1,3 @@
+/home/vlad/CLionProjects/lab4a/cmake-build-debug/CMakeFiles/lab4a.dir
+/home/vlad/CLionProjects/lab4a/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/vlad/CLionProjects/lab4a/cmake-build-debug/CMakeFiles/rebuild_cache.dir
