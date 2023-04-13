@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "aux_funcs.h"
+#include "bst_mngr.h"
 
 int init();
 int dialog(const char* msgs[], int N);
