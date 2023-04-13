@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include "aux_funcs.h"
 #include "bst_mngr.h"
 
 int init();
@@ -16,7 +17,7 @@ int main() {
 int init(){
     const char* msgs[] = {"0. Quit", "1. Add", "2. Delete", "3. Traverse", "4. Find", "5. Find Most Different Key", "6. Input from file"};
     const int NMsgs = sizeof(msgs)/sizeof(msgs[0]);
-    int (*fptr[])(Node** const) = {NULL, D_Add /*, D_Delete, D_Traverse, D_Find, D_Find_Most_Different_Key, D_Input_From_File*/};
+    int (*fptr[])(Node** const) = {NULL, D_Add, D_Delete, D_Traverse, D_Find, D_Find_Most_Different_Key, D_Input_From_File};
     Node* root = NULL;
     int res = 0;
     int rc = 0;
@@ -28,11 +29,8 @@ int init(){
         }
     }
 
-    //erase(&root);
-    if (res == RES_ERR){
-        return RES_ERR;
-    }
-    return RES_OK;
+    erase(&root);
+    return res == RES_ERR ? RES_ERR : RES_OK;
 }
 
 int dialog(const char* msgs[], const int N){
