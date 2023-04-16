@@ -15,9 +15,9 @@ int main() {
 }
 
 int init(){
-    const char* msgs[] = {"0. Quit", "1. Add", "2. Delete", "3. Traverse", "4. Find", "5. Find Most Different Key", "6. Input from file"};
+    const char* msgs[] = {"0. Quit", "1. Add", "2. Delete", "3. Traverse", "4. Find", "5. Show", "6. Find Most Different Key", "7. Input from file"};
     const int NMsgs = sizeof(msgs)/sizeof(msgs[0]);
-    int (*fptr[])(Node** const) = {NULL, D_Add, D_Delete, D_Traverse, D_Find, D_Find_Most_Different_Key, D_Input_From_File};
+    int (*fptr[])(Node** const) = {NULL, D_Add, D_Delete, D_Traverse, D_Find, D_Show, D_Find_Most_Different_Key, D_Input_From_File};
     Node* root = NULL;
     int res = 0;
     int rc = 0;

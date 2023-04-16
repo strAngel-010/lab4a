@@ -30,6 +30,7 @@ int D_Add(Node** const ptr);
 int D_Delete(Node** const ptr);
 int D_Traverse(Node** const ptr);
 int D_Find(Node** const ptr);
+int D_Show(Node** const ptr);
 int D_Find_Most_Different_Key(Node** const ptr);
 int D_Input_From_File(Node** const ptr);
 void erase(Node** const ptr);

@@ -1,0 +1,1 @@
+/usr/bin/cc -g CMakeFiles/lab4a.dir/main.c.o CMakeFiles/lab4a.dir/bst_mngr.c.o CMakeFiles/lab4a.dir/aux_funcs.c.o -o lab4a 

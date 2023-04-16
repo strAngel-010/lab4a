@@ -16,6 +16,7 @@ Node* find_common_ancestor(const Node* n1, const Node* n2);
 Node* find_prev(const Node* node);
 
 void D_Print_Traverse(const Node* node);
+void D_Recursive_Traverse(const Node* node, int tabs);
 
 int D_Add(Node** const ptr){
     char* key = NULL;
@@ -130,6 +131,24 @@ int D_Find(Node** const ptr){
     return RES_OK;
 }
 
+int D_Show(Node** const ptr){
+    D_Recursive_Traverse(*ptr, 0);
+    printf("OK\n");
+}
+
+void D_Recursive_Traverse(const Node* node, int tabs){
+    if (!node){
+        return;
+    }
+    for (int i = 0; i < tabs; ++i) {
+        printf("\t");
+    }
+    printf("+---");
+    printf("%s\n", node->key);
+    D_Recursive_Traverse(node->left, tabs+1);
+    D_Recursive_Traverse(node->right, tabs+1);
+}
+
 int D_Find_Most_Different_Key(Node** const ptr){
     if (!(*ptr)){
         printf("Tree is empty\n");
@@ -172,12 +191,13 @@ int D_Input_From_File(Node** const ptr){
     getchar();
     printf("Enter file name:\n");
     while (!strlen(buf)){
-        getchar();
         if (!fgets(buf, BUF_SIZE-1, stdin)) {
             return RES_EOF;
         }
     }
     buf[strlen(buf)-1] = '\0';
+
+    //printf("filename: %s\n", buf);
 
     FILE* f = fopen(buf, "r");
     if (!f){
@@ -187,6 +207,7 @@ int D_Input_From_File(Node** const ptr){
 
     while (!feof(f)){
         fgets(buf, BUF_SIZE-1, f);
+        buf[strlen(buf)-1] = '\0';
         char* key = strdup(buf);
         fgets(buf, BUF_SIZE-1, f);
         unsigned int info = atoi(buf);
