@@ -14,6 +14,7 @@ int calc_distance(const Node* src, const Node* dest);
 int find_level(const Node* node);
 Node* find_common_ancestor(const Node* n1, const Node* n2);
 Node* find_prev(const Node* node);
+int delete(Node** const ptr, Node* node);
 
 void D_Print_Traverse(const Node* node);
 void D_Recursive_Traverse(const Node* node, int tabs);
@@ -49,7 +50,31 @@ int D_Add(Node** const ptr){
     return RES_OK;
 }
 
-int D_Delete(Node** const ptr){};
+int D_Delete(Node** const ptr){
+    char* key = NULL;
+    char buf[BUF_SIZE];
+    buf[0] = '\0';
+
+    scanf("%*[^\n]");
+    getchar();
+    printf("Enter key:\n");
+    while (!strlen(buf)){
+        if (!fgets(buf, BUF_SIZE-1, stdin)) {
+            return RES_EOF;
+        }
+        buf[strlen(buf)-1] = '\0';
+    }
+    key = strdup(buf);
+
+    Node* node_to_del = find(*ptr, key, NULL);
+    if (!node_to_del){
+        printf("Element with this key doesn't exist\n");
+        return RES_OK;
+    }
+
+    int res = delete(ptr, node_to_del);
+    return res;
+};
 
 int D_Traverse(Node** const ptr){
     char* key = NULL;
@@ -398,6 +423,54 @@ Node* find(const Node* const ptr, const char* key, Node** const prev){
         *prev = pr;
     }
     return NULL;
+}
+
+int delete(Node** const ptr, Node* const node){
+    if (!node){
+        printf("Node* is null\n");
+        return RES_ERR;
+    }
+
+    Node* prev = find_prev(node);
+    if (prev){
+        prev->next = node->next;
+    }
+
+    Node* real_del = NULL;
+    if (!(node->left) || !(node->right)){
+        real_del = node;
+    } else {
+        real_del = node->next;
+    }
+
+    Node* under_tree = NULL;
+    if (real_del->left){
+        under_tree = real_del->left;
+    } else {
+        under_tree = real_del->right;
+    }
+    Node* par = real_del->parent;
+
+    if (under_tree){
+        under_tree->parent = par;
+    }
+
+    if (!par){
+        *ptr = under_tree;
+    } else if (par->left == real_del){
+        par->left = under_tree;
+    } else {
+        par->right = under_tree;
+    }
+
+    if (real_del != node){
+        free(node->key);
+        node->key = real_del->key;
+        free(node->info);
+        node->info = real_del->info;
+    }
+    free(real_del);
+    return RES_OK;
 }
 
 int calc_distance(const Node* src, const Node* dest){
