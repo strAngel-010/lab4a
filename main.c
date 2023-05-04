@@ -1,6 +1,6 @@
 #include <stdio.h>
-#include "aux_funcs.h"
-#include "bst_mngr.h"
+#include "../aux_funcs/aux_funcs.h"
+#include "dialog_mngr.h"
 
 int init();
 int dialog(const char* msgs[], int N);
@@ -15,14 +15,18 @@ int main() {
 }
 
 int init(){
-    const char* msgs[] = {"0. Quit", "1. Add", "2. Delete", "3. Traverse", "4. Find", "5. Show", "6. Find Most Different Key", "7. Input from file"};
+    const char* msgs[] = {"0. Quit", "1. Add", "2. Delete", "3. Traverse", "4. Find", "5. Show", "6. Find Most Different Key", "7. Input from file", "8. Timing"};
     const int NMsgs = sizeof(msgs)/sizeof(msgs[0]);
-    int (*fptr[])(Node** const) = {NULL, D_Add, D_Delete, D_Traverse, D_Find, D_Show, D_Find_Most_Different_Key, D_Input_From_File};
+    int (*fptr[])(Node** const) = {NULL, D_Add, D_Delete, D_Traverse, D_Find, D_Show, D_Find_Most_Different_Key, D_Input_From_File, D_Timing};
     Node* root = NULL;
     int res = 0;
     int rc = 0;
 
     while (rc = dialog(msgs, NMsgs)){
+        if (rc >= NMsgs || rc < 0){
+            printf("Wrong input format\n");
+            continue;
+        }
         res = fptr[rc](&root);
         if (res == RES_ERR || res == RES_EOF){
             break;
